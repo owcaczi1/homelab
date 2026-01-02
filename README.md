@@ -29,8 +29,8 @@
  
 
 
-<img src="Images\spe.png" alt="Topologia Sieci HomeLab" width="100%">
-<img src="Images\rak.jpg" alt="Topologia Sieci HomeLab" width="100%">
+<img src="Images\spe.png" alt="Topologia Sieci HomeLab" width="50%">
+<img src="Images\rak.jpg" alt="Topologia Sieci HomeLab" width="50%">
 <br>
 
 
@@ -39,36 +39,40 @@
 <details>
 <summary><b>📷 Zobacz schemat graficzny </b></summary>
 <br>
-<img src="Images\topology.png" alt="Topologia Sieci HomeLab" width="100%">
+<img src="Images\topology.png" alt="Topologia Sieci HomeLab" width="50%">
 <br><br>
 </details>
-<br>
 
+---
 ### 🏗️ Architektura logiczna
 
 Infrastruktura została podzielona na dwa odseparowane logicznie środowiska (Environments), aby zapewnić stabilność usług domowych przy jednoczesnym zachowaniu swobody testów inżynierskich.
 
+<details><summary><b>Logiczny podział sieci</b></summary>
+<br>
+
 **1. Środowisko Produkcyjne (Ubiquiti UniFi):**
-* **Edge:** Orange ONT ➔ **UCG Fiber** (Gateway).
-* **Core Switching:** **USW Pro 24 HD** (L3 Switching).
-* **Access:** **U7 Pro XGS** (Wi-Fi 7) – łączność dla urządzeń końcowych.
-* **IoT:** Izolowana strefa dla Smart Home.
-<br>
-<br>
+* **Edge:** Orange ONT ➔ **UCG Fiber** Gateway.
+* **Core Switching:** **USW Pro 24 HD** L3 Switching.
+* **Access:** **U7 Pro XGS**  – łączność dla urządzeń bezprzewodowych.
+* **IoT:** Izolowana strefa dla IoT.
 
 **2. Środowisko Laboratoryjne (Mikrotik, Cisco):**
 * **Symulowany ISP:** **MikroTik RB5009**.
-    * Pełni rolę dostawcy WAN dla labu. Separuje routing eksperymentalny od sieci domowej (Double NAT / Routing).
+    * Pełni rolę dostawcy WAN dla labu. Separuje routing eksperymentalny od sieci domowej.
 * **Lab Edge:** 2x **Cisco 1941**.
     * Działają w trybie High Availability (HSRP). Stanowią bramę (Gateway) dla środowiska Cisco.
 * **Lab Core:** 3x **Cisco 3560 Catalyst**.
     * Połączone w topologii redundantnej (Spine-Leaf) z routerami.
+</details>
+<br>
 
 ---
 
 ### 🛡️ Plan Adresacji
 
-Zastosowano standard **RFC1918** z podziałem na VLAN-y funkcjonalne.
+<details><summary><b>Zastosowano standard **RFC1918** z podziałem na VLAN-y funkcjonalne.</b></summary>
+<br>
 
 | VLAN ID | Nazwa sieci | Podsieć | Opis / Rola |
 | :---: | :--- | :--- | :--- |
@@ -78,9 +82,11 @@ Zastosowano standard **RFC1918** z podziałem na VLAN-y funkcjonalne.
 | **99** | `LAB_WAN_UPLINK` | `172.16.99.0/30` | Link P2P: USW Pro ↔ RB5009 (Interconnect). |
 | **100** | `CISCO_LAB_INSIDE`| `192.168.100.0/24` | Wewnętrzna sieć za routerami Cisco 1941. |
 | **666** | `GUEST` | `192.168.254.0/24` | Niezaufani goście / DMZ (VLAN Only). |
+</details>
+<br>
 
 ---
-<br><br>
+<br>
 
 ## 🎯 Cele i Certyfikacja
 <br>
