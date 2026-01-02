@@ -7,8 +7,7 @@
 <br>
 
 > **"Im więcej się psuje, tym lepiej - bo więcej się uczę."**
->
-> **Filozofia:** "Break it to fix it". Ten projekt to celowy chaos architektoniczny. Mieszam vendorów i wdrażam rozwiązania Enterprise "na twardo", żeby wymusić błędy i nauczyć się prawdziwego troubleshootingu. Zero gotowców, czysta praktyka pod CCNA i LPIC.
+
 
 ---
 
