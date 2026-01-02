@@ -51,37 +51,37 @@ Infrastruktura została podzielona na dwa odseparowane logicznie środowiska (En
 <details><summary><b>Logiczny podział sieci</b></summary>
 <br>
 
-**1. Środowisko Produkcyjne (Ubiquiti UniFi):**
-* **Edge:** Orange ONT ➔ **UCG Fiber** Gateway.
-* **Core Switching:** **USW Pro 24 HD** L3 Switching.
-* **Access:** **U7 Pro XGS**  – łączność dla urządzeń bezprzewodowych.
-* **IoT:** Izolowana strefa dla IoT.
 
-**2. Środowisko Laboratoryjne (Mikrotik, Cisco):**
-* **Symulowany ISP:** **MikroTik RB5009**.
-    * Pełni rolę dostawcy WAN dla labu. Separuje routing eksperymentalny od sieci domowej.
-* **Lab Edge:** 2x **Cisco 1941**.
-    * Działają w trybie High Availability (HSRP). Stanowią bramę (Gateway) dla środowiska Cisco.
-* **Lab Core:** 3x **Cisco 3560 Catalyst**.
-    * Połączone w topologii redundantnej (Spine-Leaf) z routerami.
+| Środowisko | Komponent fizyczny | Szczegóły |
+| :--- | :--- | :--- |
+| **Produkcyjne (Ubiquiti UniFi)** | Edge | Orange ONT ➔ **UCG Fiber** Gateway. |
+| **Produkcyjne (Ubiquiti UniFi)** | Core Switching | **USW Pro 24 HD** L3 Switching. |
+| **Produkcyjne (Ubiquiti UniFi)** | Access | **U7 Pro XGS** – łączność dla urządzeń bezprzewodowych. |
+| **Produkcyjne (Ubiquiti UniFi)** | IoT | Izolowana strefa dla IoT (fizyczna separacja via porty/switch). |
+| **Laboratoryjne (Mikrotik, Cisco)** | Symulowany ISP | **MikroTik RB5009**. Pełni rolę dostawcy WAN dla labu. |
+| **Laboratoryjne (Mikrotik, Cisco)** | Lab Edge | 2x **Cisco 1941**. Działają w HSRP. |
+| **Laboratoryjne (Mikrotik, Cisco)** | Lab Core | 3x **Cisco 3560 Catalyst**. Topologia Spine-Leaf. |
+
 </details>
 <br>
 
 ---
 
-### 🛡️ Plan Adresacji
+### 🛡️ Plan adresacji (logiczny podział VLAN-ów)
 
 <details><summary><b>Zastosowano standard **RFC1918** z podziałem na VLAN-y funkcjonalne.</b></summary>
 <br>
 
+To jest czysto logiczne: separacja na poziomie warstw 2/3 bez zmiany fizycznego okablowania. VLAN-y pozwalają na izolację ruchu bez dodatkowych switchy.
+
 | VLAN ID | Nazwa sieci | Podsieć | Opis / Rola |
 | :---: | :--- | :--- | :--- |
 | **10** | `MGMT_INFRA` | `10.10.0.0/24` | Zarządzanie przełącznikami i AP (Sieć Natywna). |
-| **20** | `HOME_LAN` | `10.20.0.0/24` | Laptopy, telefony, PC domowe (Trusted). |
-| **30** | `IOT_ISOLATED` | `10.30.0.0/24` | Lodówki, żarówki, sensory. **Pełna izolacja od LAN.** |
+| **20** | `HOME_LAN` | `10.20.0.0/24` | Urządzenia końcowe. (Trusted). |
+| **30** | `IOT_ISOLATED` | `10.30.0.0/24` | Urządzenia IoT. **Pełna izolacja od LAN.** |
 | **99** | `LAB_WAN_UPLINK` | `172.16.99.0/30` | Link P2P: USW Pro ↔ RB5009 (Interconnect). |
 | **100** | `CISCO_LAB_INSIDE`| `192.168.100.0/24` | Wewnętrzna sieć za routerami Cisco 1941. |
-| **666** | `GUEST` | `192.168.254.0/24` | Niezaufani goście / DMZ (VLAN Only). |
+| **666** | `GUEST` | `192.168.254.0/24` | Sieć dla gości|
 </details>
 <br>
 
@@ -109,18 +109,18 @@ Infrastruktura została podzielona na dwa odseparowane logicznie środowiska (En
 
 **Ścieżka administracji systemami Linux (LPI):**
 
-- [ ] **1. LPIC 1-101** - *Fundamenty systemu Linux + sieć i storage (baza pod HA).*
-- [ ] **2. LPIC-1 102** - *Usługi, bezpieczeństwo i automatyzacja podstawowa.*
-- [ ] **3. LPIC-2** - *Administracja zaawansowana + zarządzanie środowiskami produkcyjnymi.*
-- [ ] **4. LPIC 3-305/306** - *High Availability (HA), klastry i wirtualizacja.*
-- [ ] **5. LPIC 3-303** - *Bezpieczeństwo infrastruktury i usług krytycznych.*
+-  **1. LPIC 1-101** - *Fundamenty systemu Linux + sieć i storage (baza pod HA).*
+-  **2. LPIC-1 102** - *Usługi, bezpieczeństwo i automatyzacja podstawowa.*
+-  **3. LPIC-2** - *Administracja zaawansowana + zarządzanie środowiskami produkcyjnymi.*
+-  **4. LPIC 3-305/306** - *High Availability (HA), klastry i wirtualizacja.*
+-  **5. LPIC 3-303** - *Bezpieczeństwo infrastruktury i usług krytycznych.*
 
 </details>
 
 
 <br>
 
-## 📅 Harmonogram Wdrożenia (Roadmap)
+## 📅 Roadmapa implementacji technologii w homelabie
 
 > **Cel:** Komplikować życie, mieszać vendorów, unikać gotowców, budować od zera.
 
