@@ -12,26 +12,37 @@
 
 ---
 
+<br>
+
 ## 🏗️ Aktualny Sprzęt (Hardware Inventory)
+
 
 | Rola | Sprzęt | Uwagi |
 | :--- | :--- | :--- |
 | **WAN** | Orange FTTH 8/1 Gbps + LEOX ONT | XGS-PON |
-| **Firewall** | Ubiquiti UCG Fiber ➡️ **Sophos XG Home** | IDS/IPS ➡️ Next-Gen FW|
+| **Firewall** | Ubiquiti UCG Fiber | IDS/IPS, NGFW-Like|
 | **Switching** | Ubiquiti USW-Pro-HD-24 | L3 Switch |
-| **Lab Network** | Mikrotik RB5009, Cisco 1921 x2, Cisco 3560 x2 | Sekcja szkoleniowa CCNA |
-| **Compute** | Lenovo Tiny M720q, Raspberry Pi 4B | Proxmox VE, Debian |
+| **Lab Network** | Mikrotik RB5009, Cisco 1921 x2, Cisco 3560 x2 | Środowisko testowe |
+| **Compute** | Lenovo Tiny M720q, Raspberry Pi 4B | Proxmox, Debian |
 
----
+
+ 
+
+
+<img src="Images\spe.png" alt="Topologia Sieci HomeLab" width="100%">
+<img src="Images\rak.jpg" alt="Topologia Sieci HomeLab" width="100%">
+<br>
+
 
 ## 🗺️ Topologia sieci
 
 <details>
-<summary><b>📷 Zobacz schemat graficzny (Kliknij)</b></summary>
+<summary><b>📷 Zobacz schemat graficzny </b></summary>
 <br>
-<img src="image-3.png" alt="Topologia Sieci HomeLab" width="100%">
+<img src="Images\topology.png" alt="Topologia Sieci HomeLab" width="100%">
 <br><br>
 </details>
+<br>
 
 ### 🏗️ Architektura logiczna
 
@@ -39,11 +50,13 @@ Infrastruktura została podzielona na dwa odseparowane logicznie środowiska (En
 
 **1. Środowisko Produkcyjne (Ubiquiti UniFi):**
 * **Edge:** Orange ONT ➔ **UCG Fiber** (Gateway).
-* **Core Switching:** **UniFi Switch Pro 24 HD** (L3 Switching).
+* **Core Switching:** **USW Pro 24 HD** (L3 Switching).
 * **Access:** **U7 Pro XGS** (Wi-Fi 7) – łączność dla urządzeń końcowych.
-* **IoT:** Izolowana strefa dla Smart Home (Home Assistant / Zigbee / WiFi).
+* **IoT:** Izolowana strefa dla Smart Home.
+<br>
+<br>
 
-**2. Środowisko Laboratoryjne (The Lab):**
+**2. Środowisko Laboratoryjne (Mikrotik, Cisco):**
 * **Symulowany ISP:** **MikroTik RB5009**.
     * Pełni rolę dostawcy WAN dla labu. Separuje routing eksperymentalny od sieci domowej (Double NAT / Routing).
 * **Lab Edge:** 2x **Cisco 1941**.
@@ -67,16 +80,17 @@ Zastosowano standard **RFC1918** z podziałem na VLAN-y funkcjonalne.
 | **666** | `GUEST` | `192.168.254.0/24` | Niezaufani goście / DMZ (VLAN Only). |
 
 ---
+<br><br>
 
 ## 🎯 Cele i Certyfikacja
-
+<br>
 <details>
 <summary><b>⏳ Short-term Goals: Cisco CCNA</b></summary>
 <br>
 
 | Kurs / Egzamin | Status | Deadline | Badge |
 | :--- | :---: | :---: | :---: |
-| **1. Introduction to Networks** | ✅ **DONE** | - | <img src="image-2.png" height="50"> |
+| **1. Introduction to Networks** | ✅ **DONE** | - | <img src="Images\badge.png" height="50"> |
 | **2. Switching, Routing, & Wireless** | 🔄 **In Progress** | **14.01** | 🔒 |
 | **3. Enterprise, Security, & Automation** | ⏳ **Planned** | **31.01** | 🔒 |
 | **4. Egzamin CCNA 200-301** | 🎯 **Cel** | **15.02** | 🏆 |
@@ -97,7 +111,8 @@ Zastosowano standard **RFC1918** z podziałem na VLAN-y funkcjonalne.
 
 </details>
 
----
+
+<br>
 
 ## 📅 Harmonogram Wdrożenia (Roadmap)
 
