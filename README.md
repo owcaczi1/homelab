@@ -36,21 +36,24 @@
 
 ## 🗺️ Topologia sieci
 
+>Poniżej znajduje się wizualny schemat połączeń fizycznych w HomeLabie.
+
 <details>
-<summary><b>📷 Zobacz schemat graficzny </b></summary>
+<summary><b>📷 Zobacz schemat graficzny</b></summary>
 <br>
-<img src="Images\topology.png" alt="Topologia Sieci HomeLab" width="50%">
+<img src="Images\topology.png" alt="Topologia Sieci HomeLab" width="80%">
 <br><br>
 </details>
 
 ---
+
 ### 🏗️ Architektura logiczna
 
-Infrastruktura została podzielona na dwa odseparowane logicznie środowiska (Environments), aby zapewnić stabilność usług domowych przy jednoczesnym zachowaniu swobody testów inżynierskich.
+>Infrastruktura została podzielona na dwa odseparowane logicznie środowiska (Environments), aby zapewnić stabilność usług domowych przy jednoczesnym zachowaniu swobody testów inżynierskich.
 
-<details><summary><b>Logiczny podział sieci</b></summary>
+<details>
+<summary><b>🧩 Szczegóły podziału sprzętowego</b></summary>
 <br>
-
 
 | Środowisko | Komponent fizyczny | Szczegóły |
 | :--- | :--- | :--- |
@@ -63,27 +66,27 @@ Infrastruktura została podzielona na dwa odseparowane logicznie środowiska (En
 | **Laboratoryjne (Mikrotik, Cisco)** | Lab Core | 3x **Cisco 3560 Catalyst**. Topologia Spine-Leaf. |
 
 </details>
-<br>
 
 ---
 
-### 🛡️ Plan adresacji (logiczny podział VLAN-ów)
+### 🛡️ Plan adresacji (VLAN)
 
-<details><summary><b>Zastosowano standard **RFC1918** z podziałem na VLAN-y funkcjonalne.</b></summary>
+>Zastosowano standard **RFC1918** z podziałem na VLAN-y funkcjonalne. Jest to separacja na poziomie warstw 2/3 (bez zmiany fizycznego okablowania), co pozwala na izolację ruchu bez dodatkowych switchy.
+
+<details>
+<summary><b>📋 Tabela adresacji i VLAN-ów</b></summary>
 <br>
-
-To jest czysto logiczne: separacja na poziomie warstw 2/3 bez zmiany fizycznego okablowania. VLAN-y pozwalają na izolację ruchu bez dodatkowych switchy.
 
 | VLAN ID | Nazwa sieci | Podsieć | Opis / Rola |
 | :---: | :--- | :--- | :--- |
 | **10** | `MGMT_INFRA` | `10.10.0.0/24` | Zarządzanie przełącznikami i AP (Sieć Natywna). |
-| **20** | `HOME_LAN` | `10.20.0.0/24` | Urządzenia końcowe. (Trusted). |
+| **20** | `HOME_LAN` | `10.20.0.0/24` | Urządzenia końcowe (Trusted). |
 | **30** | `IOT_ISOLATED` | `10.30.0.0/24` | Urządzenia IoT. **Pełna izolacja od LAN.** |
 | **99** | `LAB_WAN_UPLINK` | `172.16.99.0/30` | Link P2P: USW Pro ↔ RB5009 (Interconnect). |
 | **100** | `CISCO_LAB_INSIDE`| `192.168.100.0/24` | Wewnętrzna sieć za routerami Cisco 1941. |
-| **666** | `GUEST` | `192.168.254.0/24` | Sieć dla gości|
+| **666** | `GUEST` | `192.168.254.0/24` | Sieć dla gości. |
+
 </details>
-<br>
 
 ---
 <br>
@@ -94,12 +97,12 @@ To jest czysto logiczne: separacja na poziomie warstw 2/3 bez zmiany fizycznego 
 <summary><b>⏳ Short-term Goals: Cisco CCNA</b></summary>
 <br>
 
-| Kurs / Egzamin | Status | Deadline | Badge |
-| :--- | :---: | :---: | :---: |
-| **1. Introduction to Networks** | ✅ **DONE** | - | <img src="Images\badge.png" height="50"> |
-| **2. Switching, Routing, & Wireless** | 🔄 **In Progress** | **14.01** | 🔒 |
-| **3. Enterprise, Security, & Automation** | ⏳ **Planned** | **31.01** | 🔒 |
-| **4. Egzamin CCNA 200-301** | 🎯 **Cel** | **15.02** | 🏆 |
+| Kurs / Egzamin | Opis | Status | Deadline | Badge |
+| :--- | :--- | :---: | :---: | :---: |
+| **1. Introduction to Networks** | *Wprowadzenie do sieci, modele OSI/TCP-IP, podstawy adresacji IP i architektury sieciowej.* | ✅ **DONE** | - | <img src="Images\badge.png" height="50"> |
+| **2. Switching, Routing, & Wireless** | *Przełączanie (switching), routing, technologie bezprzewodowe (Wi-Fi) i podstawy VLAN-ów.* | 🔄 **In Progress** | **14.01** | 🔒 |
+| **3. Enterprise, Security, & Automation** | *Sieci enterprise, bezpieczeństwo (firewalle, VPN), automatyzacja i programowalność (SDN).* | ⏳ **Planned** | **31.01** | 🔒 |
+| **4. Egzamin CCNA 200-301** | *Pełny egzamin certyfikujący obejmujący wszystkie moduły CCNA.* | 🎯 **Cel** | **15.02** | 🏆 |
 
 </details>
 
@@ -107,13 +110,15 @@ To jest czysto logiczne: separacja na poziomie warstw 2/3 bez zmiany fizycznego 
 <summary><b>🚀 Long-term Goals: Linux Professional Institute (LPIC)</b></summary>
 <br>
 
-**Ścieżka administracji systemami Linux (LPI):**
+**Ścieżka administracji systemami Linux (LPIC):**
 
--  **1. LPIC 1-101** - *Fundamenty systemu Linux + sieć i storage (baza pod HA).*
--  **2. LPIC-1 102** - *Usługi, bezpieczeństwo i automatyzacja podstawowa.*
--  **3. LPIC-2** - *Administracja zaawansowana + zarządzanie środowiskami produkcyjnymi.*
--  **4. LPIC 3-305/306** - *High Availability (HA), klastry i wirtualizacja.*
--  **5. LPIC 3-303** - *Bezpieczeństwo infrastruktury i usług krytycznych.*
+| Certyfikat | Opis | Status | Deadline | Badge |
+| :--- | :--- | :---: | :---: | :---: |
+| **1. LPIC 1-101** | *Fundamenty systemu Linux + sieć i storage (baza pod HA).* | ⏳ **Planned** | - | 🔒 |
+| **2. LPIC-1 102** | *Usługi, bezpieczeństwo i automatyzacja podstawowa.* | ⏳ **Planned** | - | 🔒 |
+| **3. LPIC-2** | *Administracja zaawansowana + zarządzanie środowiskami produkcyjnymi.* | ⏳ **Planned** | - | 🔒 |
+| **4. LPIC 3-305/306** | *High Availability (HA), klastry i wirtualizacja.* | ⏳ **Planned** | - | 🔒 |
+| **5. LPIC 3-303** | *Bezpieczeństwo infrastruktury i usług krytycznych.* | ⏳ **Planned** | - | 🔒 |
 
 </details>
 
